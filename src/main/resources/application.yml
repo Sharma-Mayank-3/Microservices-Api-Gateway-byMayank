@@ -1,0 +1,39 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: 'true'
+    register-with-eureka: 'true'
+  instance:
+    preferIpAddress: 'true'
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+
+  cloud:
+    gateway:
+      routes:
+        - id: HOTEL-SERVICE
+          uri: http://localhost:8082
+          predicates:
+            - Path=/microservices/hotel/**
+
+        - id: USER-SERVICE
+          uri: http://localhost:8080
+          predicates:
+            - Path=/microservices/user/**, /yyy/**
+
+        - id: RATING-SERVICE
+          uri: http://localhost:8083
+          predicates:
+            - Path=/microservices/rating/**
+
+        - id: XYZ-SERVICE
+          uri: lb://XYZ-SERVICE
+          predicates:
+            - Path=/xyz/**
+
+
+server:
+  port: '8084'
+
