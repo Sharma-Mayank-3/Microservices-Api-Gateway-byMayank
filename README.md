@@ -29,9 +29,6 @@ server:
 
 ```
 
-
-
-
 2. Add Annotation to the main class.
 
        @EnableDiscoveryClient
